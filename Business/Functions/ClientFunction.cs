@@ -15,11 +15,29 @@ namespace Business.Functions
         {
             this.context = context;
         }
-
+        
         public ActionResult<General> CreateClient(Client client, string service)
         {
             try
             {
+                if(!Validators.ValidateEmail(client.Address))
+                    return new General
+                    {
+                        title = service,
+                        idError = -2,
+                        error = true,
+                        message = $"Ingrese un correo valido."
+                    };
+
+                if (!Validators.ValidatePhoneNumber(client.PhoneNumber))
+                    return new General
+                    {
+                        title = service,
+                        idError = -3,
+                        error = true,
+                        message = $"Ingrese un teléfono valido."
+                    };
+
                 Client? clientDb = context.Clients.Where(x => x.Identification.Equals(client.Identification)).FirstOrDefault();
 
                 if (clientDb != null)
@@ -139,6 +157,24 @@ namespace Business.Functions
         {
             try
             {
+                if (!Validators.ValidateEmail(client.Address))
+                    return new General
+                    {
+                        title = service,
+                        idError = -2,
+                        error = true,
+                        message = $"Ingrese un correo valido."
+                    };
+
+                if (!Validators.ValidatePhoneNumber(client.PhoneNumber))
+                    return new General
+                    {
+                        title = service,
+                        idError = -3,
+                        error = true,
+                        message = $"Ingrese un teléfono valido."
+                    };
+
                 Client? clientDb = context.Clients.Where(x => x.Id.Equals(id)).FirstOrDefault();
 
                 if (clientDb == null)

@@ -20,7 +20,7 @@ namespace API.Controllers
         public ActionResult<General> GetProductsByClient(string identification)
         {
             string service = "GetProductsByClient";
-            return _product.GetProductsByClient(identification, service);           
+            return _product.GetProductsByClient(identification, service);
         }
 
         [HttpPost("products")]

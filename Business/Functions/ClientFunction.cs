@@ -1,5 +1,4 @@
-﻿using Azure;
-using Business.Helpers;
+﻿using Business.Helpers;
 using DataAccess;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -95,7 +94,7 @@ namespace Business.Functions
             {
                 Client? client = context.Clients.Where(x => x.Id.Equals(id)).FirstOrDefault();
 
-                if(client == null)
+                if (client == null)
                     return new General
                     {
                         title = service,
@@ -151,7 +150,14 @@ namespace Business.Functions
                         message = $"El cliente con id {id} no existe."
                     };
 
-                context.Entry(client).State = EntityState.Modified;
+                clientDb.Identification = client.Identification;
+                clientDb.IdentificationType = client.IdentificationType;
+                clientDb.Name = client.Name;
+                clientDb.LastName = client.LastName;
+                clientDb.Address = client.Address;
+                clientDb.PhoneNumber = client.PhoneNumber;
+
+                context.Entry(clientDb).State = EntityState.Modified;
                 context.SaveChanges();
 
                 return new General

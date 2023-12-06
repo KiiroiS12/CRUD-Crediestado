@@ -1,6 +1,5 @@
 using Business.Functions;
 using DataAccess;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.OpenApi.Models;
 using Models.Contracts;
 

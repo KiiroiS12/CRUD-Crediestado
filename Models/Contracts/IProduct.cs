@@ -8,6 +8,6 @@ namespace Models.Contracts
     {
         public ActionResult<General> GetProductTypes(string service);
         public ActionResult<General> GetProductsByClient(string identification, string service);
-        public ActionResult<General> AssociateProductToClient(Product product,string service);
+        public ActionResult<General> AssociateProductToClient(Product product, string service);
     }
 }

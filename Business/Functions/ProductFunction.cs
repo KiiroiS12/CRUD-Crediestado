@@ -1,11 +1,9 @@
 ﻿using Business.Helpers;
 using DataAccess;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Models.Contracts;
 using Models.Data;
 using Models.Dtos;
-using System.Net;
 
 namespace Business.Functions
 {
@@ -32,7 +30,7 @@ namespace Business.Functions
                         idError = -1,
                         error = true,
                         message = $"Tipo de producto invalido."
-                    };               
+                    };
 
                 if (client == null)
                     return new General
@@ -40,7 +38,7 @@ namespace Business.Functions
                         title = service,
                         idError = -2,
                         error = true,
-                        message = $"El cliente con id {product.Id} no existe."
+                        message = $"El cliente con id {product.ClientId} no existe."
                     };
 
                 context.Products.Add(product);
@@ -64,7 +62,7 @@ namespace Business.Functions
             {
                 var products = context.Products.
                     Join(context.Clients, p => p.ClientId, c => c.Id,
-                    (p, c) => new { client = c, product = p}).
+                    (p, c) => new { client = c, product = p }).
                     Join(context.ProductTypes, res => res.product.ProductTypeId, pt => pt.Id,
                     (res, pt) => new { res, productType = pt })
                 .Where(p => p.res.client.Identification.Equals(identification))
@@ -92,7 +90,8 @@ namespace Business.Functions
 
         public ActionResult<General> GetProductTypes(string service)
         {
-            try {
+            try
+            {
                 List<ProductType> productTypes = context.ProductTypes.ToList();
 
                 return new General
